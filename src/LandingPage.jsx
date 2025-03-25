@@ -81,7 +81,7 @@ export default function LandingPage() {
       <div className="h-8 bg-gradient-to-b from-[#0d0f24] to-gray-100"></div>
 
       {/* Why Unveila Section */}
-      <section className="bg-gray-100 text-gray-800 py-16 px-4 sm:px-8" id="why-unveila">
+      <section id="why-unveila" className="scroll-mt-24 bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Why Unveila?</h2>
           <p className="text-lg mb-12">
@@ -109,7 +109,7 @@ export default function LandingPage() {
       </section>
 
       {/* What We Solve Section */}
-      <section className="bg-white text-gray-800 py-16 px-4 sm:px-8" id="what-we-solve">
+      <section id="what-we-solve" className="scroll-mt-24 bg-white text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">What We Solve</h2>
           <p className="text-lg mb-12 text-gray-700">
