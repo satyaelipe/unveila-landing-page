@@ -110,7 +110,7 @@ export default function LandingPage() {
 
       {/* What We Solve Section */}
       <div className="h-4 bg-gradient-to-b from-gray-100 to-white" />
-      <section id="what-we-solve" className="scroll-mt-24 bg-white text-gray-800 pt-12 pb-16 px-4 sm:px-8">
+      <section id="what-we-solve" className="scroll-mt-24 bg-white text-gray-800 pt-8 pb-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">What We Solve</h2>
           <p className="text-lg mb-12 text-gray-700">
