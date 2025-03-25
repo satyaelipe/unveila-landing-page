@@ -71,6 +71,34 @@ export default function LandingPage() {
         )}
       </main>
 
+      {/* Why Unveila Section */}
+      <section className="bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">Why Unveila?</h2>
+          <p className="text-lg mb-12">
+            Unveila helps DevOps and SecOps teams stay ahead of drift, cost, and cloud chaos. Built for AWS, Azure, and GCP — one AI-powered platform for all.
+          </p>
+          <div className="grid gap-8 sm:grid-cols-2 text-left">
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🚨 Stop Infrastructure Drift</h3>
+              <p>Detect and auto-remediate changes before they lead to outages or compliance issues.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">💰 Cross-Cloud Cost Optimization</h3>
+              <p>Get real-time savings recommendations across AWS, GCP, and Azure.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🛡️ Unified Security Visibility</h3>
+              <p>One dashboard for misconfigurations, IAM, security groups, and compliance automation.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🤖 AI-Powered SRE Copilot</h3>
+              <p>Reduce alert fatigue with smart root cause analysis, ChatOps integration, and runbook automation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="text-center text-sm text-gray-500 py-4">
         © {new Date().getFullYear()} Unveila. All rights reserved.
