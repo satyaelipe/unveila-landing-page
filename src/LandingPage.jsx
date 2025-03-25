@@ -99,6 +99,42 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* What We Solve Section */}
+      <section className="bg-white text-gray-800 py-16 px-4 sm:px-8" id="what-we-solve">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">What We Solve</h2>
+          <p className="text-lg mb-12 text-gray-700">
+            Cloud environments are dynamic — and complexity grows fast. Unveila is built to tame that complexity.
+          </p>
+          <div className="grid gap-8 sm:grid-cols-2 text-left">
+            <div>
+              <h3 className="font-semibold text-xl mb-2">😵‍💫 Uncontrolled Resource Sprawl</h3>
+              <p className="text-gray-600">
+                Struggling to track what’s deployed across accounts, regions, and clouds? You’re not alone. We help you map and manage your infra in minutes.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🌀 Config Drift + Misalignment</h3>
+              <p className="text-gray-600">
+                Teams apply hotfixes, Terraform gets skipped, and compliance drifts silently. We detect and auto-correct it before it causes issues.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🧾 Ballooning Cloud Bills</h3>
+              <p className="text-gray-600">
+                Unused EBS volumes? Orphaned snapshots? Forgotten ELBs? We continuously surface idle resources and give deletion-safe insights.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-2">🛑 Security Fatigue</h3>
+              <p className="text-gray-600">
+                Noisy alerts. IAM misconfigurations. Zero-day scramble. Unveila brings unified SecOps visibility and intelligent prioritization.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="text-center text-sm text-gray-500 py-4">
         © {new Date().getFullYear()} Unveila. All rights reserved.
