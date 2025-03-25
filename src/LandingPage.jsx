@@ -16,6 +16,20 @@ export default function LandingPage() {
     setShowToast('success');
   };
 
+  useEffect(() => {
+  const hash = window.location.hash;
+  if (hash) {
+    const el = document.querySelector(hash);
+    if (el) {
+      setTimeout(() => {
+        const yOffset = -96; // ~6rem = 24px top + 24px bottom + spacing
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 100);
+    }
+  }
+}, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
       {/* Header */}
