@@ -2,90 +2,74 @@ import React, { useState } from 'react';
 
 export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [showMessage, setShowMessage] = useState(null);
+  const [toast, setToast] = useState(null);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-
-    fetch('https://formspree.io/f/mgvazoaz', {
-      method: 'POST',
-      body: new FormData(form),
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          setSubmitted(true);
-          setShowMessage({ type: 'success', text: "Thanks! You're on the waitlist ✨" });
-          setTimeout(() => setShowMessage(null), 4000);
-          form.reset();
-        } else {
-          throw new Error('Submission failed');
-        }
-      })
-      .catch(() => {
-        setShowMessage({ type: 'error', text: 'Oops! Something went wrong ❌' });
-        setTimeout(() => setShowMessage(null), 4000);
-      });
+    setToast(null);
+    setTimeout(() => setToast(null), 4000); // Reset after 4s
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a1a] text-white flex flex-col">
-      {/* Top Bar with Logo */}
-      <header className="flex justify-between items-center px-6 py-4">
-        <img src="/unveila-logo.png" alt="Unveila Logo" className="w-12 h-12" />
-        {/* Optionally add nav or login button here */}
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] via-[#0f172a] to-[#1e293b] text-white flex flex-col">
+      
+      {/* Header with logo */}
+      <header className="flex items-center px-6 py-4 bg-[#0f172a] shadow-md">
+        <img src="/unveila-logo.png" alt="Unveila Logo" className="w-16 sm:w-20 h-auto" />
       </header>
 
-      {/* Main Content */}
-      <main className="flex flex-col items-center justify-center flex-1 text-center px-4">
-        <h1 className="text-5xl sm:text-6xl font-bold tracking-widest mb-2">UNVEILA</h1>
-        <h2 className="text-xl sm:text-2xl text-blue-300 uppercase tracking-wide mb-1">
+      {/* Centered Content */}
+      <main className="flex-grow flex flex-col items-center justify-center px-6 text-center">
+        <h1 className="text-5xl font-extrabold tracking-widest mb-2">UNVEILA</h1>
+        <h2 className="text-xl text-cyan-400 uppercase font-medium mb-1">
           Illuminating What Matters
         </h2>
-        <p className="text-md text-gray-400 uppercase tracking-wide mb-6">
-          Next-Gen AI Platform
-        </p>
+        <p className="text-sm text-gray-300 mb-8 tracking-wider">Next-Gen AI Platform</p>
 
-        {/* Form */}
-        {!submitted && (
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-sm flex flex-col items-center"
-          >
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Enter your email to stay updated"
-              className="w-full px-4 py-3 text-black rounded-md mb-4"
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md font-semibold w-full transition duration-200"
+        {/* Form Container */}
+        <div className="bg-white bg-opacity-5 backdrop-blur-lg p-6 rounded-xl shadow-lg w-full max-w-sm">
+          {submitted ? (
+            <p className="text-green-400 text-lg font-medium">Thanks! You're on the waitlist ✨</p>
+          ) : (
+            <form
+              action="https://formspree.io/f/mgvazoaz"
+              method="POST"
+              onSubmit={(e) => {
+                setSubmitted(true);
+                handleSubmit(e);
+              }}
             >
-              Notify Me
-            </button>
-          </form>
-        )}
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Enter your email to stay updated"
+                className="w-full px-4 py-3 text-black rounded-md mb-4"
+              />
+              <button
+                type="submit"
+                className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md font-semibold w-full transition duration-200"
+              >
+                Notify Me
+              </button>
+            </form>
+          )}
+        </div>
 
-        {/* Message Toast */}
-        {showMessage && (
+        {/* Toasts */}
+        {toast && (
           <div
-            className={`mt-4 px-6 py-3 rounded-md text-white text-sm font-medium ${
-              showMessage.type === 'success' ? 'bg-green-500' : 'bg-red-600'
+            className={`mt-4 px-4 py-2 rounded text-sm ${
+              toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
             }`}
           >
-            {showMessage.text}
+            {toast.message}
           </div>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="text-center text-gray-500 text-sm py-6">
-        © 2025 Unveila. All rights reserved.
+      <footer className="text-center text-xs text-gray-500 py-4">
+        © {new Date().getFullYear()} Unveila. All rights reserved.
       </footer>
     </div>
   );
