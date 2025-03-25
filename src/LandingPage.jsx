@@ -17,17 +17,25 @@ export default function LandingPage() {
   };
 
   useEffect(() => {
-  const hash = window.location.hash;
-  if (hash) {
-    const el = document.querySelector(hash);
-    if (el) {
-      setTimeout(() => {
-        const yOffset = -96; // ~6rem = 24px top + 24px bottom + spacing
+  const scrollToHash = () => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        const yOffset = -96; // adjust based on your header height
         const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 100);
+      }
     }
-  }
+  };
+
+  // scroll on first load
+  scrollToHash();
+
+  // scroll on hash change
+  window.addEventListener('hashchange', scrollToHash);
+
+  return () => window.removeEventListener('hashchange', scrollToHash);
 }, []);
 
   return (
