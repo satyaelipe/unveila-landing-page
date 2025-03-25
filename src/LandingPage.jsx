@@ -17,14 +17,20 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-6">
-        <img src="/unveila-logo.png" alt="Unveila Logo" className="w-24 h-auto" />
+      <header className="flex items-center justify-between px-6 py-6 sticky top-0 bg-[#0a0a1a]/80 backdrop-blur-md z-50">
+        <div className="flex items-center space-x-4">
+          <img src="/unveila-logo.png" alt="Unveila Logo" className="w-24 h-auto" />
+          <nav className="hidden sm:flex space-x-6 text-sm text-gray-300">
+            <a href="#why-unveila" className="hover:text-white transition">Why Unveila?</a>
+            <a href="#what-we-solve" className="hover:text-white transition">What We Solve</a>
+          </nav>
+        </div>
       </header>
 
       {/* Hero Section */}
-      <main className="flex-grow flex flex-col items-center justify-center px-6 animate-fade-in">
+      <main className="flex-grow flex flex-col items-center justify-center px-6 animate-fade-in text-center">
         <h1 className="text-5xl md:text-6xl font-bold tracking-widest">UNVEILA</h1>
         <h2 className="text-xl text-blue-400 mt-2 uppercase tracking-wide font-medium">
           Illuminating What Matters
@@ -71,8 +77,11 @@ export default function LandingPage() {
         )}
       </main>
 
+      {/* Section Divider */}
+      <div className="h-8 bg-gradient-to-b from-[#0d0f24] to-gray-100"></div>
+
       {/* Why Unveila Section */}
-      <section className="bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
+      <section className="bg-gray-100 text-gray-800 py-16 px-4 sm:px-8" id="why-unveila">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Why Unveila?</h2>
           <p className="text-lg mb-12">
@@ -137,7 +146,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="text-center text-sm text-gray-500 py-4">
-        © {new Date().getFullYear()} Unveila. All rights reserved.
+        <span role="img" aria-label="lightbulb">💡</span> © {new Date().getFullYear()} Unveila. All rights reserved.
       </footer>
 
       {/* Fade-in animation */}
