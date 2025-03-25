@@ -1,86 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
-  const [showToast, setShowToast] = useState(false);
+  const [showMessage, setShowMessage] = useState(null);
 
-  useEffect(() => {
-    if (submitted || error) {
-      setShowToast(true);
-      const timer = setTimeout(() => {
-        setShowToast(false);
-        setSubmitted(false);
-        setError(false);
-      }, 4000); // auto-clear after 4s
-      return () => clearTimeout(timer);
-    }
-  }, [submitted, error]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = new FormData(form);
 
-    try {
-      const response = await fetch('https://formspree.io/f/mgvazoaz', {
-        method: 'POST',
-        body: data,
-        headers: {
-          Accept: 'application/json',
-        },
+    fetch('https://formspree.io/f/mgvazoaz', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setSubmitted(true);
+          setShowMessage({ type: 'success', text: "Thanks! You're on the waitlist ✨" });
+          setTimeout(() => setShowMessage(null), 4000);
+          form.reset();
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(() => {
+        setShowMessage({ type: 'error', text: 'Oops! Something went wrong ❌' });
+        setTimeout(() => setShowMessage(null), 4000);
       });
-
-      if (response.ok) {
-        setSubmitted(true);
-        form.reset();
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (err) {
-      setError(true);
-    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a1a] text-white flex flex-col items-center justify-center px-6 relative">
-      {/* Logo and Titles */}
-      <img src="/unveila-logo.png" alt="Unveila Logo" className="w-40 h-40 mb-6 drop-shadow-lg" />
-      <h1 className="text-5xl font-bold tracking-widest text-white">UNVEILA</h1>
-      <h2 className="text-xl text-blue-300 mt-2 uppercase tracking-wider font-medium">
-        Illuminating What Matters
-      </h2>
-      <p className="text-md text-gray-400 mt-1 mb-6 uppercase tracking-wide">Next-Gen AI Platform</p>
+    <div className="min-h-screen bg-[#0a0a1a] text-white flex flex-col">
+      {/* Top Bar with Logo */}
+      <header className="flex justify-between items-center px-6 py-4">
+        <img src="/unveila-logo.png" alt="Unveila Logo" className="w-12 h-12" />
+        {/* Optionally add nav or login button here */}
+      </header>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Enter your email to stay updated"
-          className="w-full px-4 py-3 text-black rounded-md mb-4"
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md font-semibold w-full transition duration-200"
-        >
-          Notify Me
-        </button>
-      </form>
+      {/* Main Content */}
+      <main className="flex flex-col items-center justify-center flex-1 text-center px-4">
+        <h1 className="text-5xl sm:text-6xl font-bold tracking-widest mb-2">UNVEILA</h1>
+        <h2 className="text-xl sm:text-2xl text-blue-300 uppercase tracking-wide mb-1">
+          Illuminating What Matters
+        </h2>
+        <p className="text-md text-gray-400 uppercase tracking-wide mb-6">
+          Next-Gen AI Platform
+        </p>
 
-      {/* Toast Message */}
-      {showToast && (
-        <div
-          className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-4 py-3 rounded-md shadow-lg transition-all duration-300
-            ${submitted ? 'bg-green-600' : 'bg-red-600'}
-          `}
-        >
-          <p className="text-white font-medium">
-            {submitted ? "Thanks! You're on the waitlist ✨" : 'Oops! Something went wrong ❌'}
-          </p>
-        </div>
-      )}
+        {/* Form */}
+        {!submitted && (
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-sm flex flex-col items-center"
+          >
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Enter your email to stay updated"
+              className="w-full px-4 py-3 text-black rounded-md mb-4"
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md font-semibold w-full transition duration-200"
+            >
+              Notify Me
+            </button>
+          </form>
+        )}
+
+        {/* Message Toast */}
+        {showMessage && (
+          <div
+            className={`mt-4 px-6 py-3 rounded-md text-white text-sm font-medium ${
+              showMessage.type === 'success' ? 'bg-green-500' : 'bg-red-600'
+            }`}
+          >
+            {showMessage.text}
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="text-center text-gray-500 text-sm py-6">
+        © 2025 Unveila. All rights reserved.
+      </footer>
     </div>
   );
 }
