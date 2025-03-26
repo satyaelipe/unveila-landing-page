@@ -4,6 +4,7 @@ import ResponsiveNavbar from './ResponsiveNavbar';
 export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(null);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     if (showToast) {
@@ -18,30 +19,49 @@ export default function LandingPage() {
   };
 
   useEffect(() => {
-  const scrollToHash = () => {
-    const hash = window.location.hash;
-    if (hash) {
-      const el = document.querySelector(hash);
-      if (el) {
-        const yOffset = hash === "#home" ? -160 : -96;
-        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+    const scrollToHash = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const el = document.querySelector(hash);
+        if (el) {
+          const yOffset = hash === "#home" ? -160 : -96;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }
-    }
-  };
+    };
 
-  // scroll on first load
-  scrollToHash();
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
+  }, []);
 
-  // scroll on hash change
-  window.addEventListener('hashchange', scrollToHash);
+  // 🔥 Scroll Highlighting Effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'why-unveila', 'what-we-solve'];
+      const offsets = sections.map(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          return {
+            id,
+            offset: el.getBoundingClientRect().top - 100
+          };
+        }
+        return null;
+      }).filter(Boolean);
 
-  return () => window.removeEventListener('hashchange', scrollToHash);
-}, []);
+      const current = offsets.find(s => s.offset >= 0) || offsets[offsets.length - 1];
+      if (current) setActiveSection(current.id);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
-      <ResponsiveNavbar />
+      <ResponsiveNavbar activeSection={activeSection} />
       
       {/* Hero Section */}
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 animate-fade-in text-center">
