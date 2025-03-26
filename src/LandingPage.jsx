@@ -45,6 +45,7 @@ export default function LandingPage() {
         <div className="flex items-center space-x-4">
           <img src="/unveila-logo.png" alt="Unveila Logo" className="w-24 h-auto" />
           <nav className="hidden sm:flex space-x-6 text-sm text-gray-300">
+            <a href="#" className="hover:text-white transition">Home</a>
             <a href="#why-unveila" className="hover:text-white transition">Why Unveila?</a>
             <a href="#what-we-solve" className="hover:text-white transition">What We Solve</a>
           </nav>
