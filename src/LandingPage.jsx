@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ResponsiveNavbar from './ResponsiveNavbar';
 
 export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(null);
   const [activeSection, setActiveSection] = useState('home');
+
+  const sectionsRef = useRef({});
 
   useEffect(() => {
     if (showToast) {
@@ -30,13 +32,12 @@ export default function LandingPage() {
         }
       }
     };
-
     scrollToHash();
     window.addEventListener('hashchange', scrollToHash);
     return () => window.removeEventListener('hashchange', scrollToHash);
   }, []);
 
-  // 🔥 Scroll Highlighting Effect
+  // 🟡 Scroll Highlighting Effect
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'why-unveila', 'what-we-solve'];
@@ -59,12 +60,31 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 🎞️ Scroll Fade-In Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll('.fade-in-section');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
       <ResponsiveNavbar activeSection={activeSection} />
-      
+
       {/* Hero Section */}
-      <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 animate-fade-in text-center">
+      <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 fade-in-section text-center">
         <h1 className="text-5xl md:text-6xl font-bold tracking-widest">UNVEILA</h1>
         <h2 className="text-xl text-blue-400 mt-2 uppercase tracking-wide font-medium">
           Illuminating What Matters
@@ -73,12 +93,9 @@ export default function LandingPage() {
           Next-Gen AI Platform
         </p>
 
-        {/* Form / Thank-you */}
         <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-md">
           {submitted ? (
-            <p className="text-green-400 text-center text-lg">
-              Thanks! You're on the waitlist ✨
-            </p>
+            <p className="text-green-400 text-center text-lg">Thanks! You're on the waitlist ✨</p>
           ) : (
             <form
               action="https://formspree.io/f/mgvazoaz"
@@ -103,7 +120,6 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Toast */}
         {showToast === 'success' && (
           <div className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md shadow-lg transition-opacity">
             ✅ Successfully submitted!
@@ -115,7 +131,7 @@ export default function LandingPage() {
       <div className="h-8 bg-gradient-to-b from-[#0d0f24] to-gray-100"></div>
 
       {/* Why Unveila Section */}
-      <section id="why-unveila" className="scroll-mt-24 bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
+      <section id="why-unveila" className="fade-in-section scroll-mt-24 bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Why Unveila?</h2>
           <p className="text-lg mb-12">
@@ -144,7 +160,7 @@ export default function LandingPage() {
 
       {/* What We Solve Section */}
       <div className="h-4 bg-gradient-to-b from-gray-100 to-white" />
-      <section id="what-we-solve" className="scroll-mt-24 bg-white text-gray-800 py-16 px-4 sm:px-8">
+      <section id="what-we-solve" className="fade-in-section scroll-mt-24 bg-white text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">What We Solve</h2>
           <p className="text-lg mb-12 text-gray-700">
@@ -153,27 +169,19 @@ export default function LandingPage() {
           <div className="grid gap-8 sm:grid-cols-2 text-left">
             <div>
               <h3 className="font-semibold text-xl mb-2">😵‍💫 Uncontrolled Resource Sprawl</h3>
-              <p className="text-gray-600">
-                Struggling to track what’s deployed across accounts, regions, and clouds? You’re not alone. We help you map and manage your infra in minutes.
-              </p>
+              <p className="text-gray-600">Struggling to track what’s deployed across accounts, regions, and clouds? You’re not alone. We help you map and manage your infra in minutes.</p>
             </div>
             <div>
               <h3 className="font-semibold text-xl mb-2">🌀 Config Drift + Misalignment</h3>
-              <p className="text-gray-600">
-                Teams apply hotfixes, Terraform gets skipped, and compliance drifts silently. We detect and auto-correct it before it causes issues.
-              </p>
+              <p className="text-gray-600">Teams apply hotfixes, Terraform gets skipped, and compliance drifts silently. We detect and auto-correct it before it causes issues.</p>
             </div>
             <div>
               <h3 className="font-semibold text-xl mb-2">🧾 Ballooning Cloud Bills</h3>
-              <p className="text-gray-600">
-                Unused EBS volumes? Orphaned snapshots? Forgotten ELBs? We continuously surface idle resources and give deletion-safe insights.
-              </p>
+              <p className="text-gray-600">Unused EBS volumes? Orphaned snapshots? Forgotten ELBs? We continuously surface idle resources and give deletion-safe insights.</p>
             </div>
             <div>
               <h3 className="font-semibold text-xl mb-2">🛑 Security Fatigue</h3>
-              <p className="text-gray-600">
-                Noisy alerts. IAM misconfigurations. Zero-day scramble. Unveila brings unified SecOps visibility and intelligent prioritization.
-              </p>
+              <p className="text-gray-600">Noisy alerts. IAM misconfigurations. Zero-day scramble. Unveila brings unified SecOps visibility and intelligent prioritization.</p>
             </div>
           </div>
         </div>
@@ -184,14 +192,16 @@ export default function LandingPage() {
         <span role="img" aria-label="lightbulb">💡</span> © {new Date().getFullYear()} Unveila. All rights reserved.
       </footer>
 
-      {/* Fade-in animation */}
+      {/* Fade-in Animations */}
       <style>{`
-        .animate-fade-in {
-          animation: fadeIn 1s ease-in-out;
+        .fade-in-section {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 1s ease-out, transform 1s ease-out;
         }
-        @keyframes fadeIn {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
+        .fade-in-visible {
+          opacity: 1;
+          transform: translateY(0);
         }
       `}</style>
     </div>
