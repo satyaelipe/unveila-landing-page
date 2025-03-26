@@ -23,7 +23,8 @@ export default function LandingPage() {
     if (hash) {
       const el = document.querySelector(hash);
       if (el) {
-        const yOffset = -96; // adjust based on your header height
+        const isHome = hash === "#home";
+        const yOffset = isHome ? 0 : -96;
         const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
