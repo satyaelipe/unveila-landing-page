@@ -23,7 +23,7 @@ export default function LandingPage() {
     if (hash) {
       const el = document.querySelector(hash);
       if (el) {
-        const yOffset = -96;
+        const yOffset = hash === "#home" ? -160 : -96;
         const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
