@@ -9,6 +9,13 @@ export default function LandingPage() {
   const observerRef = useRef(null);
 
   useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => setSubmitted(false), 3000); // ✨ auto-dismiss after 3s
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
+
+  useEffect(() => {
     if (showToast) {
       const timer = setTimeout(() => setShowToast(null), 4000);
       return () => clearTimeout(timer);
