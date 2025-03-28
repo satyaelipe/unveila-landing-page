@@ -17,23 +17,20 @@ export default function LandingPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
+    const formData = new FormData(e.target);
     try {
-      const response = await fetch('https://formspree.io/f/mgvazoaz', {
+      await fetch('https://formspree.io/f/mgvazoaz', {
         method: 'POST',
+        body: formData,
         headers: {
-          Accept: 'application/json'
+          Accept: 'application/json',
         },
-        body: data
       });
-      if (response.ok) {
-        setSubmitted(true);
-        setShowToast('success');
-        form.reset();
-      }
-    } catch (err) {
-      console.error('Submission error:', err);
+      setSubmitted(true);
+      setShowToast('success');
+      e.target.reset();
+    } catch (error) {
+      console.error('Submission error:', error);
     }
   };
 
@@ -106,7 +103,10 @@ export default function LandingPage() {
           {submitted ? (
             <p className="text-green-400 text-center text-lg">Thanks! You're on the waitlist ✨</p>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col space-y-4"
+            >
               <input
                 type="email"
                 name="email"
@@ -123,6 +123,7 @@ export default function LandingPage() {
             </form>
           )}
         </div>
+
         {showToast === 'success' && (
           <div className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md shadow-lg transition-opacity">
             ✅ Successfully submitted!
