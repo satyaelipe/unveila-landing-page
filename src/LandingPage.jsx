@@ -94,7 +94,6 @@ export default function LandingPage() {
             <form
               action="https://webhook.site/d7502de8-2945-4fa8-bc55-f8bacb1b5f91"
               method="POST"
-              onSubmit={handleSubmit}
               className="flex flex-col space-y-4"
             >
               <input
