@@ -92,7 +92,7 @@ export default function LandingPage() {
             <p className="text-green-400 text-center text-lg">Thanks! You're on the waitlist ✨</p>
           ) : (
             <form
-              action="https://formspree.io/f/mgvazoaz"
+              action="https://webhook.site/d7502de8-2945-4fa8-bc55-f8bacb1b5f91"
               method="POST"
               onSubmit={handleSubmit}
               className="flex flex-col space-y-4"
