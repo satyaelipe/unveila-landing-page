@@ -131,12 +131,6 @@ export default function LandingPage() {
             </form>
           )}
         </div>
-
-        {showToast === 'success' && (
-          <div className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md shadow-lg transition-opacity">
-            ✅ Successfully submitted!
-          </div>
-        )}
       </main>
 
       <div className="h-8 bg-gradient-to-b from-[#0d0f24] to-gray-100" />
