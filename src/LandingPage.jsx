@@ -112,7 +112,7 @@ export default function LandingPage() {
 
         <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-md">
           {submitted ? (
-            <p className="text-green-400 text-center text-lg">Thanks! You're on the waitlist ✨</p>
+            <p className="text-green-400 text-center text-lg">Thank you! Your message has been received! We’ll keep you updated ✨</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
               <input
