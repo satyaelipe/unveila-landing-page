@@ -15,9 +15,26 @@ export default function LandingPage() {
     }
   }, [showToast]);
 
-  const handleSubmit = (e) => {
-    setSubmitted(true);
-    setShowToast('success');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      const response = await fetch('https://formspree.io/f/mgvazoaz', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json'
+        },
+        body: data
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        setShowToast('success');
+        form.reset();
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+    }
   };
 
   useEffect(() => {
@@ -38,7 +55,6 @@ export default function LandingPage() {
     return () => window.removeEventListener('hashchange', scrollToHash);
   }, []);
 
-  // Scroll Highlighting
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'why-unveila', 'what-we-solve'];
@@ -62,7 +78,6 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll Fade-ins using Intersection Observer
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -91,11 +106,7 @@ export default function LandingPage() {
           {submitted ? (
             <p className="text-green-400 text-center text-lg">Thanks! You're on the waitlist ✨</p>
           ) : (
-            <form
-              action="https://webhook.site/d7502de8-2945-4fa8-bc55-f8bacb1b5f91"
-              method="POST"
-              className="flex flex-col space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
               <input
                 type="email"
                 name="email"
@@ -121,7 +132,6 @@ export default function LandingPage() {
 
       <div className="h-8 bg-gradient-to-b from-[#0d0f24] to-gray-100" />
 
-      {/* Why Unveila Section */}
       <section id="why-unveila" className="fade-section scroll-mt-24 bg-gray-100 text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Why Unveila?</h2>
@@ -137,7 +147,6 @@ export default function LandingPage() {
 
       <div className="h-4 bg-gradient-to-b from-gray-100 to-white" />
 
-      {/* What We Solve Section */}
       <section id="what-we-solve" className="fade-section scroll-mt-24 bg-white text-gray-800 py-16 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">What We Solve</h2>
@@ -151,7 +160,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Back to Top Button */}
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -166,7 +174,6 @@ export default function LandingPage() {
         <span role="img" aria-label="lightbulb">💡</span> © {new Date().getFullYear()} Unveila. All rights reserved.
       </footer>
 
-      {/* Animations */}
       <style>{`
         .fade-section {
           opacity: 0;
