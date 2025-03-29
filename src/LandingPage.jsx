@@ -71,11 +71,18 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
-      <div
-        className="fixed top-0 right-0 h-full w-4 z-40"
-        onMouseEnter={() => setSidebarOpen(true)}
-        onMouseLeave={() => setSidebarOpen(false)}
-      ></div>
+      <ResponsiveNavbar activeSection={activeSection} />
+
+      {/* Toggle Arrow Button */}
+      {!sidebarOpen && (
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="fixed top-1/2 right-2 transform -translate-y-1/2 z-40 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow"
+          aria-label="Open Sidebar"
+        >
+          ◀
+        </button>
+      )}
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
         <h1 className="text-5xl md:text-6xl font-bold tracking-widest">UNVEILA</h1>
