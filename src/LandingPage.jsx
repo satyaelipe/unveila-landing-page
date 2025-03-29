@@ -95,20 +95,20 @@ export default function LandingPage() {
         <h1 className="text-4xl md:text-5xl font-semibold tracking-wide mb-6">What do you want to know about your cloud?</h1>
 
         {/* Central Search Box */}
-        <div className="relative w-full max-w-2xl">
-          <input
-            type="text"
+        <div className="relative w-full max-w-3xl">
+          <textarea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             onKeyDown={handleSearchSubmit}
-            placeholder="Ask anything... e.g. 'drift of all Lambdas in prod'"
-            className="w-full px-4 py-4 pr-12 text-black rounded-md placeholder-gray-600 text-lg shadow-xl"
+            rows={2}
+            placeholder="Ask anything... across AWS | GCP | Azure"
+            className="w-full px-4 py-4 pr-14 text-black rounded-md placeholder-gray-600 text-lg shadow-xl resize-none overflow-hidden"
           />
           <button
             onClick={handleSearchSubmit}
-            className="absolute right-2 top-2 bottom-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+            className="absolute right-2 bottom-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
             aria-label="Submit Query"
           >→</button>
 
