@@ -79,6 +79,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col scroll-smooth">
+      {/* Sidebar Toggle Button (Round, Bottom Right Only) */}
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
@@ -90,7 +91,9 @@ export default function LandingPage() {
       )}
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
-        <h1 className="text-4xl md:text-5xl font-normal tracking-wide mb-6">What do you want to know about your cloud?</h1>
+        <h1 className="text-4xl md:text-5xl font-normal tracking-wide mb-6">
+          What do you want to know about your cloud?
+        </h1>
 
         <div className="relative w-full max-w-3xl">
           <textarea
@@ -110,7 +113,9 @@ export default function LandingPage() {
             onClick={handleSearchSubmit}
             className="absolute right-2 bottom-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
             aria-label="Submit Query"
-          >→</button>
+          >
+            →
+          </button>
 
           {showSuggestions && (
             <ul className="absolute mt-2 w-full bg-white text-gray-800 rounded-md shadow-lg z-10">
@@ -133,7 +138,9 @@ export default function LandingPage() {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-16 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg"
           aria-label="Back to top"
-        >↑</button>
+        >
+          ↑
+        </button>
       )}
 
       <SidebarDrawer isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
