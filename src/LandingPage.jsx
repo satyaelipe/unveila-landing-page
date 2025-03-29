@@ -48,7 +48,7 @@ export default function SidebarDrawer() {
       {!isOpen && (
         <div className="fixed top-1/2 right-0 transform -translate-y-1/2 z-20 space-y-4 p-2 bg-transparent">
           <button onClick={toggleDrawer} className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow">
-            |<
+            {'|<'} 
           </button>
         </div>
       )}
