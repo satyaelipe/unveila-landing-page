@@ -82,7 +82,7 @@ export default function LandingPage() {
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="fixed bottom-6 right-6 z-40 text-white bg-[#3d5165] hover:bg-[#4e6175] px-3 py-2 rounded-full shadow"
+          className="fixed bottom-6 right-6 z-40 text-white bg-[#3d5165] hover:bg-[#4e6175] p-3 rounded-full shadow"
           aria-label="Open Sidebar"
         >
           ◀
