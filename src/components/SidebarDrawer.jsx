@@ -1,6 +1,6 @@
 // src/components/SidebarDrawer.jsx
 import React, { useState } from 'react';
-import { Info, Puzzle, Tool, Lock, BookOpen } from 'lucide-react';
+import { Info, Puzzle, Wrench, Lock, BookOpen } from 'lucide-react';
 
 export default function SidebarDrawer() {
   const [isOpen, setIsOpen] = useState(false);
