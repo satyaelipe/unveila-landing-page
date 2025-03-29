@@ -60,22 +60,26 @@ export default function LandingPage() {
     return () => observerRef.current.disconnect();
   }, []);
 
+  const handleSearchSubmit = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const query = e.target.value;
+      console.log('Submitting query:', query);
+      // TODO: Replace console.log with backend call
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
-      <ResponsiveNavbar activeSection={activeSection} />
+      <div
+        className="fixed top-0 right-0 h-full w-4 z-40"
+        onMouseEnter={() => setSidebarOpen(true)}
+        onMouseLeave={() => setSidebarOpen(false)}
+      ></div>
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
         <h1 className="text-5xl md:text-6xl font-bold tracking-widest">UNVEILA</h1>
         <h2 className="text-xl text-blue-400 mt-2 uppercase tracking-wide font-medium">Seek into your cloud</h2>
-
-        {/* Sidebar Toggle Button */}
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="mt-4 text-blue-400 hover:text-blue-600 transition"
-          aria-label="Toggle Sidebar"
-        >
-          ➤
-        </button>
 
         {/* Central Search Box */}
         <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-md mt-8">
@@ -83,12 +87,8 @@ export default function LandingPage() {
             type="text"
             placeholder="Search across clouds… e.g. 'drift of all Lambdas in prod'"
             className="w-full px-4 py-3 text-black rounded-md placeholder-gray-600"
+            onKeyDown={handleSearchSubmit}
           />
-          <button
-            className="bg-blue-600 hover:bg-blue-700 px-4 py-2 mt-4 rounded-md font-semibold w-full transition duration-200"
-          >
-            Run Query
-          </button>
         </div>
       </main>
 
