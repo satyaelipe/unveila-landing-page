@@ -7,6 +7,7 @@ export default function LandingPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const observerRef = useRef(null);
   const [query, setQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     const scrollToHash = () => {
@@ -64,6 +65,7 @@ export default function LandingPage() {
     if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       console.log('Submitting query:', query);
+      setShowSuggestions(false);
       // TODO: Replace with backend call
     }
   };
@@ -85,7 +87,7 @@ export default function LandingPage() {
           className="fixed bottom-6 right-6 z-40 text-white bg-[#2c3e50] hover:bg-[#3d5165] px-3 py-2 rounded-full shadow"
           aria-label="Open Sidebar"
         >
-          ➤
+          ◀
         </button>
       )}
 
@@ -98,6 +100,8 @@ export default function LandingPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             onKeyDown={handleSearchSubmit}
             placeholder="Ask anything... e.g. 'drift of all Lambdas in prod'"
             className="w-full px-4 py-4 pr-12 text-black rounded-md placeholder-gray-600 text-lg shadow-xl"
@@ -107,17 +111,20 @@ export default function LandingPage() {
             className="absolute right-2 top-2 bottom-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
             aria-label="Submit Query"
           >→</button>
-        </div>
 
-        {/* Suggestions */}
-        <div className="mt-6 space-y-2">
-          {exampleQueries.map((text, idx) => (
-            <button
-              key={idx}
-              onClick={() => setQuery(text)}
-              className="text-sm md:text-base text-blue-300 hover:text-blue-400"
-            >{text}</button>
-          ))}
+          {showSuggestions && (
+            <ul className="absolute mt-2 w-full bg-white text-gray-800 rounded-md shadow-lg z-10">
+              {exampleQueries.map((text, idx) => (
+                <li
+                  key={idx}
+                  onMouseDown={() => setQuery(text)}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left"
+                >
+                  {text}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </main>
 
