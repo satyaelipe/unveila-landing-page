@@ -1,4 +1,3 @@
-// src/components/SidebarDrawer.jsx
 import React from 'react';
 
 export default function SidebarDrawer({ isOpen, onClose }) {
@@ -8,10 +7,14 @@ export default function SidebarDrawer({ isOpen, onClose }) {
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
-      <div className="p-4 flex justify-between items-center border-b">
+      <div className="p-4 flex justify-between items-center border-b bg-gray-100">
         <h3 className="text-lg font-semibold">Explore Features</h3>
-        <button onClick={onClose} aria-label="Close Sidebar" className="text-gray-500 hover:text-gray-800 text-xl">
-          ←
+        <button
+          onClick={onClose}
+          aria-label="Close Sidebar"
+          className="text-gray-700 hover:text-gray-900 text-xl font-bold"
+        >
+          →
         </button>
       </div>
 
