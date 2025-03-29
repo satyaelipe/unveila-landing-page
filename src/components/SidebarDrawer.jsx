@@ -15,13 +15,14 @@ export default function SidebarDrawer() {
         className="fixed top-1/2 right-0 z-40 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-l shadow transition-all duration-300"
         aria-label="Toggle Sidebar"
       >
-        {isOpen ? '>|' : '|<'} {/* <-- THIS NEEDS TO BE A STRING */}
+        {isOpen ? '>|' : '|<'}
       </button>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white text-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out z-30
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 h-full w-64 bg-white text-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out z-30 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
         <div className="p-4 border-b flex items-center space-x-2">
           <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
@@ -47,7 +48,11 @@ export default function SidebarDrawer() {
       {/* Mini Sidebar when closed */}
       {!isOpen && (
         <div className="fixed top-1/2 right-0 transform -translate-y-1/2 z-20 space-y-4 p-2 bg-transparent">
-          <button onClick={toggleDrawer} className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow">
+          <button
+            onClick={toggleDrawer}
+            className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow"
+            aria-label="Open Sidebar"
+          >
             {'|<'}
           </button>
         </div>
