@@ -73,27 +73,26 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
       <ResponsiveNavbar activeSection={activeSection} />
 
-      {/* Toggle Arrow Button */}
+      {/* Toggle Button Bottom-Right */}
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="fixed top-1/2 right-2 transform -translate-y-1/2 z-40 text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow"
+          className="fixed bottom-6 right-6 z-40 text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-l shadow"
           aria-label="Open Sidebar"
         >
-          ◀
+          |&lt;-
         </button>
       )}
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-widest">UNVEILA</h1>
-        <h2 className="text-xl text-blue-400 mt-2 uppercase tracking-wide font-medium">Seek into your cloud</h2>
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-wide mb-4">What do you want to know about your cloud?</h1>
 
         {/* Central Search Box */}
-        <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-md mt-8">
+        <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-xl">
           <input
             type="text"
-            placeholder="Search across clouds… e.g. 'drift of all Lambdas in prod'"
-            className="w-full px-4 py-3 text-black rounded-md placeholder-gray-600"
+            placeholder="Ask anything… e.g. 'drift of all Lambdas in prod'"
+            className="w-full px-4 py-4 text-black rounded-md placeholder-gray-600 text-lg"
             onKeyDown={handleSearchSubmit}
           />
         </div>
@@ -102,7 +101,7 @@ export default function LandingPage() {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg"
+          className="fixed bottom-16 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg"
           aria-label="Back to top"
         >↑</button>
       )}
