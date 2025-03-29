@@ -1,57 +1,93 @@
-// src/components/SidebarDrawer.jsx
+// src/LandingPage.jsx
 import React, { useState } from 'react';
-import { Home, Info, Puzzle } from 'lucide-react';
+import SidebarDrawer from './components/SidebarDrawer';
 
-export default function SidebarDrawer() {
-  const [isOpen, setIsOpen] = useState(false);
+const suggestions = [
+  "drift of all Lambdas in prod",
+  "unused EIPs in GCP",
+  "cost of CloudWatch in AWS",
+  "dependency graph for Azure VMs",
+  "show me idle RDS instances"
+];
 
-  const toggleDrawer = () => setIsOpen(!isOpen);
+export default function LandingPage() {
+  const [query, setQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+    setShowSuggestions(true);
+  };
+
+  const handleSuggestionClick = (text) => {
+    setQuery(text);
+    setShowSuggestions(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Query submitted:", query);
+    setShowSuggestions(false);
+  };
 
   return (
-    <>
-      {/* Toggle Button */}
-      <button
-        onClick={toggleDrawer}
-        className="fixed top-1/2 right-0 z-40 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-l shadow transition-all duration-300"
-        aria-label="Toggle Sidebar"
+    <div className="min-h-screen bg-[#0D0D1D] text-white flex flex-col items-center justify-center relative px-4">
+      <SidebarDrawer />
+
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        What do you want to know about your cloud?
+      </h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl relative"
+        autoComplete="off"
       >
-        {isOpen ? '>|' : '|<'}
-      </button>
+        <div className="relative">
+          <input
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            placeholder="Ask anything..."
+            className="w-full px-4 py-4 pr-20 rounded-md bg-white text-black placeholder-gray-500 text-base sm:text-lg shadow-md"
+            style={{ minHeight: '56px' }}
+          />
 
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white text-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out z-30
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        <div className="p-4 border-b flex items-center space-x-2">
-          <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
-          <span className="font-semibold text-lg">Unveila</span>
-        </div>
+          {/* Animated cloud provider text */}
+          <span className="absolute bottom-2 right-14 text-xs italic text-gray-400 animate-pulse pointer-events-none">
+            across AWS | GCP | Azure
+          </span>
 
-        <nav className="flex flex-col p-4 space-y-4">
-          <a href="#home" className="flex items-center space-x-3 text-gray-800 hover:text-blue-600">
-            <Home size={18} />
-            <span>Home</span>
-          </a>
-          <a href="#why-unveila" className="flex items-center space-x-3 text-gray-800 hover:text-blue-600">
-            <Info size={18} />
-            <span>Why Unveila?</span>
-          </a>
-          <a href="#what-we-solve" className="flex items-center space-x-3 text-gray-800 hover:text-blue-600">
-            <Puzzle size={18} />
-            <span>What We Solve</span>
-          </a>
-        </nav>
-      </div>
-
-      {/* Mini Sidebar when closed */}
-      {!isOpen && (
-        <div className="fixed top-1/2 right-0 transform -translate-y-1/2 z-20 space-y-4 p-2 bg-transparent">
-          <button onClick={toggleDrawer} className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-l shadow">
-            {'|<'} 
+          {/* Submit button */}
+          <button
+            type="submit"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded shadow"
+          >
+            →
           </button>
         </div>
-      )}
-    </>
+
+        {/* Suggestions dropdown */}
+        {showSuggestions && (
+          <ul className="absolute z-10 mt-2 w-full bg-white text-black shadow-md rounded-md overflow-hidden">
+            {suggestions.map((sugg, idx) => (
+              <li
+                key={idx}
+                className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                onClick={() => handleSuggestionClick(sugg)}
+              >
+                {sugg}
+              </li>
+            ))}
+          </ul>
+        )}
+      </form>
+
+      <footer className="absolute bottom-6 text-sm text-gray-400">
+        <span role="img" aria-label="bulb">💡</span> © 2025 Unveila. All rights reserved.
+      </footer>
+    </div>
   );
 }
