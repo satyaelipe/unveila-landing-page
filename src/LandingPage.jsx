@@ -78,11 +78,11 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
+    <div className="min-h-screen bg-[#111827] text-white flex flex-col scroll-smooth">
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="fixed bottom-6 right-6 z-40 text-white bg-[#2c3e50] hover:bg-[#3d5165] px-3 py-2 rounded-full shadow"
+          className="fixed bottom-6 right-6 z-40 text-white bg-blue-600 hover:bg-blue-700 p-3 rounded-full shadow"
           aria-label="Open Sidebar"
         >
           ◀
@@ -90,9 +90,11 @@ export default function LandingPage() {
       )}
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
-        <h1 className="text-4xl md:text-5xl font-semibold tracking-wide mb-6">What do you want to know about your cloud?</h1>
+        <h1 className="text-4xl md:text-5xl font-normal tracking-wide mb-6">
+          What do you want to know about your cloud?
+        </h1>
 
-        <div className="relative w-full max-w-3xl">
+        <div className="relative w-full max-w-4xl">
           <textarea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -101,7 +103,7 @@ export default function LandingPage() {
             onKeyDown={handleSearchSubmit}
             rows={2}
             placeholder="Ask anything..."
-            className="w-full px-4 py-4 pr-14 text-black rounded-md placeholder-gray-600 text-lg shadow-xl resize-none overflow-hidden"
+            className="w-full px-4 py-4 pr-14 text-white bg-[#1f2937] rounded-md placeholder-gray-400 text-lg shadow-xl resize-none overflow-hidden"
           />
           <div className="absolute bottom-2 right-20 text-xs text-gray-400 italic animate-pulse">
             across AWS | GCP | Azure
