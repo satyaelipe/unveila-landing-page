@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import SidebarDrawer from './components/SidebarDrawer';
 
-const suggestions = [
+const sampleQuestions = [
   "drift of all Lambdas in prod",
   "unused EIPs in GCP",
   "cost of CloudWatch in AWS",
@@ -12,81 +12,77 @@ const suggestions = [
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleQuerySelect = (value) => {
+    setQuery(value);
+    setShowDropdown(false);
+  };
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
-    setShowSuggestions(true);
-  };
-
-  const handleSuggestionClick = (text) => {
-    setQuery(text);
-    setShowSuggestions(false);
+    setShowDropdown(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Query submitted:", query);
-    setShowSuggestions(false);
+    if (query.trim()) {
+      console.log("Query submitted:", query);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0D1D] text-white flex flex-col items-center justify-center relative px-4">
+    <div className="relative min-h-screen bg-[#020617] text-white">
       <SidebarDrawer />
 
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-        What do you want to know about your cloud?
-      </h1>
+      <div className="flex flex-col items-center justify-center h-screen px-4 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl mb-8">
+          What do you want to know about your cloud?
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-2xl relative"
-        autoComplete="off"
-      >
-        <div className="relative">
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            placeholder="Ask anything..."
-            className="w-full px-4 py-4 pr-20 rounded-md bg-white text-black placeholder-gray-500 text-base sm:text-lg shadow-md"
-            style={{ minHeight: '56px' }}
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="relative w-full max-w-3xl"
+        >
+          <div className="bg-gray-900 border border-gray-700 rounded-md px-4 py-3 flex flex-wrap items-center">
+            <input
+              type="text"
+              className="flex-grow bg-transparent outline-none text-white text-sm sm:text-base placeholder-gray-400"
+              placeholder="Ask anything..."
+              value={query}
+              onChange={handleInputChange}
+              onFocus={() => setShowDropdown(true)}
+            />
+            <span className="text-xs sm:text-sm text-gray-400 italic ml-auto hidden sm:inline-block">
+              across AWS | GCP | Azure
+            </span>
+            <button
+              type="submit"
+              className="ml-3 px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+              aria-label="Submit query"
+            >
+              ➔
+            </button>
+          </div>
 
-          {/* Animated cloud provider text */}
-          <span className="absolute bottom-2 right-14 text-xs italic text-gray-400 animate-pulse pointer-events-none">
-            across AWS | GCP | Azure
-          </span>
+          {showDropdown && (
+            <ul className="absolute z-20 mt-1 w-full bg-black border border-gray-700 rounded-md text-left">
+              {sampleQuestions.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="px-4 py-2 hover:bg-gray-800 cursor-pointer"
+                  onClick={() => handleQuerySelect(item)}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </form>
+      </div>
 
-          {/* Submit button */}
-          <button
-            type="submit"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded shadow"
-          >
-            →
-          </button>
-        </div>
-
-        {/* Suggestions dropdown */}
-        {showSuggestions && (
-          <ul className="absolute z-10 mt-2 w-full bg-white text-black shadow-md rounded-md overflow-hidden">
-            {suggestions.map((sugg, idx) => (
-              <li
-                key={idx}
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
-                onClick={() => handleSuggestionClick(sugg)}
-              >
-                {sugg}
-              </li>
-            ))}
-          </ul>
-        )}
-      </form>
-
-      <footer className="absolute bottom-6 text-sm text-gray-400">
-        <span role="img" aria-label="bulb">💡</span> © 2025 Unveila. All rights reserved.
+      <footer className="absolute bottom-4 w-full text-center text-xs text-gray-400">
+        <span className="inline-block align-middle">💡</span> © 2025 Unveila. All rights reserved.
       </footer>
     </div>
   );
