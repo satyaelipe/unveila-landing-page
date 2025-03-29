@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ResponsiveNavbar from './ResponsiveNavbar';
 import SidebarDrawer from './components/SidebarDrawer';
 
 export default function LandingPage() {
@@ -7,6 +6,7 @@ export default function LandingPage() {
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const observerRef = useRef(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const scrollToHash = () => {
@@ -61,40 +61,63 @@ export default function LandingPage() {
   }, []);
 
   const handleSearchSubmit = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
-      const query = e.target.value;
       console.log('Submitting query:', query);
-      // TODO: Replace console.log with backend call
+      // TODO: Replace with backend call
     }
   };
 
+  const exampleQueries = [
+    "drift of all Lambdas in prod",
+    "unused EIPs in GCP",
+    "cost of CloudWatch in AWS",
+    "dependency graph for Azure VMs",
+    "show me idle RDS instances"
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a1a] to-[#0d0f24] text-white flex flex-col scroll-smooth">
-      <ResponsiveNavbar activeSection={activeSection} />
-
       {/* Toggle Button Bottom-Right */}
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="fixed bottom-6 right-6 z-40 text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-l shadow"
+          className="fixed bottom-6 right-6 z-40 text-white bg-[#2c3e50] hover:bg-[#3d5165] px-3 py-2 rounded-full shadow"
           aria-label="Open Sidebar"
         >
-          |&lt;-
+          ➤
         </button>
       )}
 
       <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
-        <h1 className="text-4xl md:text-5xl font-semibold tracking-wide mb-4">What do you want to know about your cloud?</h1>
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-wide mb-6">What do you want to know about your cloud?</h1>
 
         {/* Central Search Box */}
-        <div className="bg-white/5 backdrop-blur-lg rounded-lg shadow-xl p-6 w-full max-w-xl">
+        <div className="relative w-full max-w-2xl">
           <input
             type="text"
-            placeholder="Ask anything… e.g. 'drift of all Lambdas in prod'"
-            className="w-full px-4 py-4 text-black rounded-md placeholder-gray-600 text-lg"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleSearchSubmit}
+            placeholder="Ask anything... e.g. 'drift of all Lambdas in prod'"
+            className="w-full px-4 py-4 pr-12 text-black rounded-md placeholder-gray-600 text-lg shadow-xl"
           />
+          <button
+            onClick={handleSearchSubmit}
+            className="absolute right-2 top-2 bottom-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+            aria-label="Submit Query"
+          >→</button>
+        </div>
+
+        {/* Suggestions */}
+        <div className="mt-6 space-y-2">
+          {exampleQueries.map((text, idx) => (
+            <button
+              key={idx}
+              onClick={() => setQuery(text)}
+              className="text-sm md:text-base text-blue-300 hover:text-blue-400"
+            >{text}</button>
+          ))}
         </div>
       </main>
 
