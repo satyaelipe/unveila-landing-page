@@ -1,6 +1,6 @@
 // src/components/SidebarDrawer.jsx
 import React, { useState } from 'react';
-import { Info, Puzzle, Lock, LogIn, UserPlus, Layers3 } from 'lucide-react';
+import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
 export default function SidebarDrawer({ onSectionSelect }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,42 +47,21 @@ export default function SidebarDrawer({ onSectionSelect }) {
 
         <nav className="flex flex-col justify-between h-full">
           <div className="p-4 space-y-6">
-            <div>
-              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
-                <Info size={16} />
-                <span>About</span>
-              </div>
-              <div className="ml-5 space-y-2">
-                <button onClick={() => handleNavClick('why-unveila')} className="block text-left hover:text-blue-400">
-                  Why Unveila?
-                </button>
-                <button onClick={() => handleNavClick('what-we-solve')} className="block text-left hover:text-blue-400">
-                  What We Solve
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={() => handleNavClick('home')}
+              className="flex items-center space-x-3 hover:text-blue-400"
+            >
+              <Home size={18} />
+              <span>Home</span>
+            </button>
 
-            <div>
-              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
-                <Puzzle size={16} />
-                <span>Features</span>
-              </div>
-              <div className="ml-5 space-y-2">
-                <button onClick={() => handleNavClick('drift-detection')} className="block text-left hover:text-blue-400">
-                  Drift Detection
-                </button>
-                <button onClick={() => handleNavClick('dependency-graph')} className="block text-left hover:text-blue-400">
-                  Dependency Graph
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
-                <Lock size={16} />
-                <span>Access</span>
-              </div>
-            </div>
+            <button
+              onClick={() => handleNavClick('features')}
+              className="flex items-center space-x-3 hover:text-blue-400"
+            >
+              <Puzzle size={18} />
+              <span>Features</span>
+            </button>
           </div>
 
           <div className="p-4 border-t border-gray-700 space-y-3">
