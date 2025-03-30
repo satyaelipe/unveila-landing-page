@@ -12,18 +12,29 @@ export default function SidebarDrawer({ setView }) {
   };
 
   const homeContent = {
-    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
+  "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
 It provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
 
-    "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:
+  "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:
 
-• Drift & Configuration Chaos — Prevent and fix untracked infra changes.
-• Cross-Cloud Cost Inefficiency — Optimize resource placement for best savings.
-• On-Call Fatigue — Faster root cause analysis, alert insights, and runbook automation.
-• Security Blind Spots — Surface IAM misconfigurations, open ports, and compliance issues.
-• Dependency Complexity — Map and visualize how your resources talk across clouds.
-• Scattered Threat Detection — Correlate and respond to threats across AWS, Azure, and GCP.`
-  };
+🔄 **Drift & Configuration Chaos**
+Prevent and fix untracked infra changes.
+
+💸 **Cross-Cloud Cost Inefficiency**
+Optimize resource placement for best savings.
+
+🚑 **On-Call Fatigue**
+Faster root cause analysis, alert insights, and runbook automation.
+
+🔐 **Security Blind Spots**
+Surface IAM misconfigurations, open ports, and compliance issues.
+
+🕸️ **Dependency Complexity**
+Map and visualize how your resources talk across clouds.
+
+🧠 **Scattered Threat Detection**
+Correlate and respond to threats across AWS, Azure, and GCP.`
+};
 
   const features = {
     "Drift Detection": "Detect infrastructure drift between AWS and Terraform code.",
