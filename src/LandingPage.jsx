@@ -42,7 +42,7 @@ export default function LandingPage() {
     switch (view) {
       case 'home':
         return (
-          <main id="home" className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
+          <main className="flex-grow flex flex-col items-center justify-center px-6 text-center fade-section">
             <h1 className="text-4xl md:text-5xl font-normal tracking-wide mb-6">
               What do you want to know about your cloud?
             </h1>
@@ -84,11 +84,11 @@ export default function LandingPage() {
           </main>
         );
       case 'features':
-        return <div className="p-8 text-center text-lg fade-section">🔍 Explore Unveila’s Features — from Drift Detection to Dependency Graphs, all in one place.</div>;
+        return <div className="p-8 text-center text-lg fade-section">🧩 Discover Unveila's features: Drift Detection, Dependency Graph, and more.</div>;
       case 'login':
-        return <div className="p-8 text-center text-lg fade-section">🔐 Log in securely to access your cloud insights.</div>;
+        return <div className="p-8 text-center text-lg fade-section">🔐 Log in to your Unveila workspace.</div>;
       case 'signup':
-        return <div className="p-8 text-center text-lg fade-section">📬 Create your Unveila account and stay notified.</div>;
+        return <div className="p-8 text-center text-lg fade-section">✉️ Sign up to get early access to Unveila.</div>;
       default:
         return null;
     }
@@ -108,17 +108,14 @@ export default function LandingPage() {
 
       {renderView()}
 
-      {showScrollTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-16 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg"
-          aria-label="Back to top"
-        >
-          ↑
-        </button>
-      )}
-
-      <SidebarDrawer isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} setView={setView} />
+      <SidebarDrawer
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onSectionSelect={(section) => {
+          setView(section);
+          setSidebarOpen(false);
+        }}
+      />
 
       <footer className="text-center text-sm text-gray-500 py-4">
         <span role="img" aria-label="lightbulb">💡</span> © {new Date().getFullYear()} Unveila. All rights reserved.
