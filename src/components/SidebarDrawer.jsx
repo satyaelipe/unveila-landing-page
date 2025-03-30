@@ -17,22 +17,22 @@ It provides deep insights, visualizations, and proactive automation to detect dr
 
   "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:
 
-🔄 **Drift & Configuration Chaos**
+🔄 Drift & Configuration Chaos:
 Prevent and fix untracked infra changes.
 
-💸 **Cross-Cloud Cost Inefficiency**
+💸 Cross-Cloud Cost Inefficiency:
 Optimize resource placement for best savings.
 
-🚑 **On-Call Fatigue**
+🚑 On-Call Fatigue:
 Faster root cause analysis, alert insights, and runbook automation.
 
-🔐 **Security Blind Spots**
+🔐 Security Blind Spots:
 Surface IAM misconfigurations, open ports, and compliance issues.
 
-🕸️ **Dependency Complexity**
+🕸️ Dependency Complexity:
 Map and visualize how your resources talk across clouds.
 
-🧠 **Scattered Threat Detection**
+🧠 Scattered Threat Detection:
 Correlate and respond to threats across AWS, Azure, and GCP.`
 };
 
