@@ -1,10 +1,9 @@
-// Updated SidebarDrawer.jsx with Home modal items
+// Updated SidebarDrawer.jsx with modals rendered globally
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
 export default function SidebarDrawer({ setView }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDialog, setActiveDialog] = useState(null);
 
   const toggleDrawer = () => setIsOpen(!isOpen);
   const handleNavClick = (section) => {
@@ -23,6 +22,13 @@ export default function SidebarDrawer({ setView }) {
     "Cloud Dependency Graph": "Visualize how resources depend on each other across cloud environments.",
     "Cost Estimation": "Get a quick view of estimated monthly spend across your infrastructure.",
     "Security Posture": "Analyze and improve your cloud security posture using real-time signals."
+  };
+
+  const showGlobalModal = ({ title, content }) => {
+    const event = new CustomEvent('showGlobalModal', {
+      detail: { title, content },
+    });
+    window.dispatchEvent(event);
   };
 
   return (
@@ -70,7 +76,7 @@ export default function SidebarDrawer({ setView }) {
                 {Object.keys(homeContent).map((item) => (
                   <button
                     key={item}
-                    onClick={() => setActiveDialog({ title: item, content: homeContent[item] })}
+                    onClick={() => showGlobalModal({ title: item, content: homeContent[item] })}
                     className="hover:text-blue-400"
                   >
                     {item}
@@ -88,7 +94,7 @@ export default function SidebarDrawer({ setView }) {
                 {Object.keys(features).map((feature) => (
                   <button
                     key={feature}
-                    onClick={() => setActiveDialog({ title: feature, content: features[feature] })}
+                    onClick={() => showGlobalModal({ title: feature, content: features[feature] })}
                     className="hover:text-blue-400"
                   >
                     {feature}
@@ -116,17 +122,6 @@ export default function SidebarDrawer({ setView }) {
             </button>
           </div>
         </div>
-
-        {/* Dialog */}
-        {activeDialog && (
-          <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#0c0c0c] text-white border border-gray-700 rounded-lg shadow-lg p-6 w-[90%] max-w-xl z-50">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold">{activeDialog.title}</h2>
-              <button onClick={() => setActiveDialog(null)} className="text-gray-400 hover:text-white">✕</button>
-            </div>
-            <pre className="text-sm whitespace-pre-wrap text-gray-300">{activeDialog.content}</pre>
-          </div>
-        )}
       </div>
     </>
   );
