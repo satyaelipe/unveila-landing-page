@@ -5,7 +5,6 @@ export default function SidebarDrawer({ setView }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => setIsOpen(!isOpen);
-
   const handleNavClick = (section) => {
     setView(section);
     setIsOpen(false);
@@ -32,9 +31,16 @@ export default function SidebarDrawer({ setView }) {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <div className="flex items-center space-x-2">
-            <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
-            <span className="font-semibold text-lg">Unveila</span>
+          <div className="flex items-center space-x-3">
+            {/* Icon when collapsed or full logo when expanded */}
+            <img
+              src="/qloudseek-q-icon.png"
+              alt="QloudSeek Logo"
+              className="w-8 h-8"
+            />
+            {isOpen && (
+              <span className="font-semibold text-lg">QloudSeek</span>
+            )}
           </div>
           <button
             onClick={toggleDrawer}
@@ -47,7 +53,6 @@ export default function SidebarDrawer({ setView }) {
 
         {/* Navigation */}
         <div className="flex flex-col justify-between h-[calc(100%-64px)]">
-          {/* Top Nav */}
           <div className="p-4 space-y-6">
             <button
               onClick={() => handleNavClick('home')}
@@ -66,7 +71,6 @@ export default function SidebarDrawer({ setView }) {
             </button>
           </div>
 
-          {/* Bottom Nav */}
           <div className="p-4 space-y-3 border-t border-gray-700">
             <button
               onClick={() => handleNavClick('login')}
