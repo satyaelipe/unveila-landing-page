@@ -33,14 +33,7 @@ export default function SidebarDrawer({ setView }) {
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <div className="flex items-center space-x-3">
             {/* Icon when collapsed or full logo when expanded */}
-            <img
-              src="/qloudseek-q-icon.png"
-              alt="QloudSeek Logo"
-              className="w-8 h-8"
-            />
-            {isOpen && (
-              <span className="font-semibold text-lg">QloudSeek</span>
-            )}
+            <span className="font-semibold text-lg">QloudSeek</span>
           </div>
           <button
             onClick={toggleDrawer}
