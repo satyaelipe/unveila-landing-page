@@ -1,12 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SidebarDrawer from './components/SidebarDrawer';
+import GlobalModal from './components/GlobalModal';
 
 export default function LandingPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [view, setView] = useState('home');
+  const [modalData, setModalData] = useState({ title: null, content: null });
+
   const observerRef = useRef(null);
   const [query, setQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Listen for global modal events
+  useEffect(() => {
+    const handleShowModal = (event) => {
+      setModalData(event.detail); // { title, content }
+    };
+
+    window.addEventListener('showGlobalModal', handleShowModal);
+    return () => window.removeEventListener('showGlobalModal', handleShowModal);
+  }, []);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
@@ -120,6 +133,13 @@ export default function LandingPage() {
       <footer className="text-center text-sm text-gray-500 py-4">
         <span role="img" aria-label="lightbulb">💡</span> © {new Date().getFullYear()} Unveila. All rights reserved.
       </footer>
+
+      {/* Global Modal renderer */}
+      <GlobalModal
+        title={modalData.title}
+        content={modalData.content}
+        onClose={() => setModalData({ title: null, content: null })}
+      />
 
       <style>{`
         .fade-section {
