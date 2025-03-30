@@ -1,4 +1,3 @@
-// src/components/SidebarDrawer.jsx
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
@@ -7,8 +6,8 @@ export default function SidebarDrawer({ setView }) {
 
   const toggleDrawer = () => setIsOpen(!isOpen);
 
-  const handleNavClick = (view) => {
-    setView(view);
+  const handleNavClick = (section) => {
+    setView(section);
     setIsOpen(false);
   };
 
@@ -27,9 +26,9 @@ export default function SidebarDrawer({ setView }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-screen w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
-        } overflow-y-auto`}
+        }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
@@ -47,7 +46,8 @@ export default function SidebarDrawer({ setView }) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col justify-between h-full pb-6">
+        <div className="flex flex-col justify-between h-[calc(100%-64px)]">
+          {/* Top Nav */}
           <div className="p-4 space-y-6">
             <button
               onClick={() => handleNavClick('home')}
@@ -66,8 +66,8 @@ export default function SidebarDrawer({ setView }) {
             </button>
           </div>
 
-          {/* Footer buttons */}
-          <div className="p-4 border-t border-gray-700 space-y-2">
+          {/* Bottom Nav */}
+          <div className="p-4 space-y-3 border-t border-gray-700">
             <button
               onClick={() => handleNavClick('login')}
               className="flex items-center space-x-2 hover:text-blue-400"
@@ -83,7 +83,7 @@ export default function SidebarDrawer({ setView }) {
               <span>Sign Up</span>
             </button>
           </div>
-        </nav>
+        </div>
       </div>
     </>
   );
