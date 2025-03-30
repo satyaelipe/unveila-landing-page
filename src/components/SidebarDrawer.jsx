@@ -1,4 +1,4 @@
-// Updated SidebarDrawer.jsx with GlobalModal integration
+// SidebarDrawer.jsx — now using GlobalModal and Vercel-safe syntax
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
@@ -12,9 +12,17 @@ export default function SidebarDrawer({ setView }) {
   };
 
   const homeContent = {
-    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.\nIt provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
+    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
+It provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
 
-    "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:\n\n• Drift & Configuration Chaos — Prevent and fix untracked infra changes.\n• Cross-Cloud Cost Inefficiency — Optimize resource placement for best savings.\n• On-Call Fatigue — Faster root cause analysis, alert insights, and runbook automation.\n• Security Blind Spots — Surface IAM misconfigurations, open ports, and compliance issues.\n• Dependency Complexity — Map and visualize how your resources talk across clouds.\n• Scattered Threat Detection — Correlate and respond to threats across AWS, Azure, and GCP.`
+    "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:
+
+• Drift & Configuration Chaos — Prevent and fix untracked infra changes.
+• Cross-Cloud Cost Inefficiency — Optimize resource placement for best savings.
+• On-Call Fatigue — Faster root cause analysis, alert insights, and runbook automation.
+• Security Blind Spots — Surface IAM misconfigurations, open ports, and compliance issues.
+• Dependency Complexity — Map and visualize how your resources talk across clouds.
+• Scattered Threat Detection — Correlate and respond to threats across AWS, Azure, and GCP.`
   };
 
   const features = {
@@ -45,7 +53,10 @@ export default function SidebarDrawer({ setView }) {
 
       {/* Sidebar */}
       <div
-        className={\`fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 \${isOpen ? 'translate-x-0' : 'translate-x-full'}\`}
+        className={
+          'fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ' +
+          (isOpen ? 'translate-x-0' : 'translate-x-full')
+        }
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
