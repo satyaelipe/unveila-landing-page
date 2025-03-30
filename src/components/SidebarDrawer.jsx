@@ -1,4 +1,4 @@
-// Updated SidebarDrawer.jsx with modals rendered globally
+// Updated SidebarDrawer.jsx with GlobalModal integration
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
@@ -45,9 +45,7 @@ export default function SidebarDrawer({ setView }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={\`fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 \${isOpen ? 'translate-x-0' : 'translate-x-full'}\`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
