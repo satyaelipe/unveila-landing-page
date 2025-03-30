@@ -1,68 +1,106 @@
 // src/components/SidebarDrawer.jsx
 import React, { useState } from 'react';
-import { Info, Puzzle, Wrench, User, NotebookPen } from 'lucide-react';
+import { Info, Puzzle, Lock, LogIn, UserPlus, Layers3 } from 'lucide-react';
 
-export default function SidebarDrawer({ isOpen, onClose }) {
+export default function SidebarDrawer({ onSectionSelect }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDrawer = () => setIsOpen(!isOpen);
+
+  const handleNavClick = (section) => {
+    onSectionSelect(section);
+    setIsOpen(false);
+  };
+
   return (
     <>
+      {/* Toggle Button */}
+      {!isOpen && (
+        <button
+          onClick={toggleDrawer}
+          className="fixed bottom-6 right-6 z-40 text-white bg-[#3d5165] hover:bg-[#4e6175] p-3 rounded-full shadow"
+          aria-label="Open Sidebar"
+        >
+          ◀
+        </button>
+      )}
+
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-[#0a0a1a] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-30
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 h-full w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
-        {/* Header with logo and close button */}
-        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <div className="flex items-center space-x-2">
             <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
             <span className="font-semibold text-lg">Unveila</span>
           </div>
           <button
-            onClick={onClose}
-            className="text-white text-lg bg-[#2c3e50] hover:bg-[#3d5165] p-1 rounded-full"
+            onClick={toggleDrawer}
+            className="text-gray-400 hover:text-white text-lg"
             aria-label="Close Sidebar"
           >
             ▶
           </button>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex flex-col p-4 space-y-6">
+        <nav className="flex flex-col justify-between h-full">
+          <div className="p-4 space-y-6">
+            <div>
+              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
+                <Info size={16} />
+                <span>About</span>
+              </div>
+              <div className="ml-5 space-y-2">
+                <button onClick={() => handleNavClick('why-unveila')} className="block text-left hover:text-blue-400">
+                  Why Unveila?
+                </button>
+                <button onClick={() => handleNavClick('what-we-solve')} className="block text-left hover:text-blue-400">
+                  What We Solve
+                </button>
+              </div>
+            </div>
 
-          {/* About Section */}
-          <div>
-            <h3 className="text-sm uppercase text-gray-400 mb-2">About</h3>
-            <a href="#why-unveila" className="flex items-center space-x-3 text-gray-300 hover:text-white">
-              <Info size={18} />
-              <span>Why Unveila?</span>
-            </a>
-            <a href="#what-we-solve" className="flex items-center space-x-3 mt-2 text-gray-300 hover:text-white">
-              <Puzzle size={18} />
-              <span>What We Solve</span>
-            </a>
+            <div>
+              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
+                <Puzzle size={16} />
+                <span>Features</span>
+              </div>
+              <div className="ml-5 space-y-2">
+                <button onClick={() => handleNavClick('drift-detection')} className="block text-left hover:text-blue-400">
+                  Drift Detection
+                </button>
+                <button onClick={() => handleNavClick('dependency-graph')} className="block text-left hover:text-blue-400">
+                  Dependency Graph
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center space-x-2 text-gray-400 uppercase text-xs mb-2">
+                <Lock size={16} />
+                <span>Access</span>
+              </div>
+            </div>
           </div>
 
-          {/* Features Section */}
-          <div>
-            <h3 className="text-sm uppercase text-gray-400 mb-2">Features</h3>
-            <a href="#drift-detection" className="flex items-center space-x-3 text-gray-300 hover:text-white">
-              <Wrench size={18} />
-              <span>Drift Detection</span>
-            </a>
-            <a href="#dependency-graph" className="flex items-center space-x-3 mt-2 text-gray-300 hover:text-white">
-              <NotebookPen size={18} />
-              <span>Dependency Graph</span>
-            </a>
+          <div className="p-4 border-t border-gray-700 space-y-3">
+            <button
+              onClick={() => handleNavClick('login')}
+              className="flex items-center space-x-2 hover:text-blue-400"
+            >
+              <LogIn size={18} />
+              <span>Login</span>
+            </button>
+            <button
+              onClick={() => handleNavClick('signup')}
+              className="flex items-center space-x-2 hover:text-blue-400"
+            >
+              <UserPlus size={18} />
+              <span>Sign Up</span>
+            </button>
           </div>
-
-          {/* Auth Section */}
-          <div>
-            <h3 className="text-sm uppercase text-gray-400 mb-2">Access</h3>
-            <a href="#notify-me" className="flex items-center space-x-3 text-gray-300 hover:text-white">
-              <User size={18} />
-              <span>Sign In / Sign Up</span>
-            </a>
-          </div>
-
         </nav>
       </div>
     </>
