@@ -1,4 +1,3 @@
-// SidebarDrawer.jsx — now using GlobalModal and Vercel-safe syntax
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
@@ -11,30 +10,57 @@ export default function SidebarDrawer({ setView }) {
     setIsOpen(false);
   };
 
+  const problemsWeSolve = [
+    {
+      icon: '🔄',
+      title: 'Drift & Configuration Chaos',
+      desc: 'Prevent and fix untracked infra changes.',
+    },
+    {
+      icon: '💸',
+      title: 'Cross-Cloud Cost Inefficiency',
+      desc: 'Optimize resource placement for best savings.',
+    },
+    {
+      icon: '🚑',
+      title: 'On-Call Fatigue',
+      desc: 'Faster root cause analysis, alert insights, and runbook automation.',
+    },
+    {
+      icon: '🔐',
+      title: 'Security Blind Spots',
+      desc: 'Surface IAM misconfigurations, open ports, and compliance issues.',
+    },
+    {
+      icon: '🕸️',
+      title: 'Dependency Complexity',
+      desc: 'Map and visualize how your resources talk across clouds.',
+    },
+    {
+      icon: '🧠',
+      title: 'Scattered Threat Detection',
+      desc: 'Correlate and respond to threats across AWS, Azure, and GCP.',
+    },
+  ];
+
   const homeContent = {
-  "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
+    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
 It provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
 
-  "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:
-
-🔄 Drift & Configuration Chaos:
-Prevent and fix untracked infra changes.
-
-💸 Cross-Cloud Cost Inefficiency:
-Optimize resource placement for best savings.
-
-🚑 On-Call Fatigue:
-Faster root cause analysis, alert insights, and runbook automation.
-
-🔐 Security Blind Spots:
-Surface IAM misconfigurations, open ports, and compliance issues.
-
-🕸️ Dependency Complexity:
-Map and visualize how your resources talk across clouds.
-
-🧠 Scattered Threat Detection:
-Correlate and respond to threats across AWS, Azure, and GCP.`
-};
+    "What We Solve": (
+      <div>
+        <p className="mb-4">
+          QloudSeek addresses the biggest pain points in cloud operations:
+        </p>
+        {problemsWeSolve.map((item, idx) => (
+          <div key={idx} className="mb-4">
+            <strong>{item.icon} {item.title}:</strong><br />
+            {item.desc}
+          </div>
+        ))}
+      </div>
+    )
+  };
 
   const features = {
     "Drift Detection": "Detect infrastructure drift between AWS and Terraform code.",
@@ -62,7 +88,6 @@ Correlate and respond to threats across AWS, Azure, and GCP.`
         </button>
       )}
 
-      {/* Sidebar */}
       <div
         className={
           'fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ' +
@@ -71,9 +96,7 @@ Correlate and respond to threats across AWS, Azure, and GCP.`
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-lg">QloudSeek</span>
-          </div>
+          <span className="font-semibold text-lg">QloudSeek</span>
           <button
             onClick={toggleDrawer}
             className="text-gray-400 hover:text-white text-lg"
@@ -85,7 +108,6 @@ Correlate and respond to threats across AWS, Azure, and GCP.`
 
         {/* Navigation */}
         <div className="flex flex-col justify-between h-[calc(100%-64px)]">
-          {/* Top Nav */}
           <div className="p-4 space-y-4">
             <div>
               <div className="flex items-center space-x-3 text-blue-300">
@@ -124,7 +146,6 @@ Correlate and respond to threats across AWS, Azure, and GCP.`
             </div>
           </div>
 
-          {/* Bottom Nav */}
           <div className="p-4 space-y-3 border-t border-gray-700">
             <button
               onClick={() => handleNavClick('login')}
