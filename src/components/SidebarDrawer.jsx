@@ -1,10 +1,10 @@
-// SidebarDrawer.jsx
+// Updated SidebarDrawer.jsx with Home modal items
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
 export default function SidebarDrawer({ setView }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(null);
+  const [activeDialog, setActiveDialog] = useState(null);
 
   const toggleDrawer = () => setIsOpen(!isOpen);
   const handleNavClick = (section) => {
@@ -12,34 +12,40 @@ export default function SidebarDrawer({ setView }) {
     setIsOpen(false);
   };
 
-  const features = [
-    { name: 'Drift Detection', description: 'Detect infrastructure drift between AWS and Terraform code.' },
-    { name: 'Cloud Dependency Graph', description: 'Visualize resource relationships across your cloud.' },
-    { name: 'Cost Estimation', description: 'Get estimated spend for your resources in real time.' },
-    { name: 'Security Posture', description: 'Audit and improve your security configuration.' }
-  ];
+  const homeContent = {
+    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.\nIt provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
+
+    "What We Solve": `QloudSeek addresses the biggest pain points in cloud operations:\n\n• Drift & Configuration Chaos — Prevent and fix untracked infra changes.\n• Cross-Cloud Cost Inefficiency — Optimize resource placement for best savings.\n• On-Call Fatigue — Faster root cause analysis, alert insights, and runbook automation.\n• Security Blind Spots — Surface IAM misconfigurations, open ports, and compliance issues.\n• Dependency Complexity — Map and visualize how your resources talk across clouds.\n• Scattered Threat Detection — Correlate and respond to threats across AWS, Azure, and GCP.`
+  };
+
+  const features = {
+    "Drift Detection": "Detect infrastructure drift between AWS and Terraform code.",
+    "Cloud Dependency Graph": "Visualize how resources depend on each other across cloud environments.",
+    "Cost Estimation": "Get a quick view of estimated monthly spend across your infrastructure.",
+    "Security Posture": "Analyze and improve your cloud security posture using real-time signals."
+  };
 
   return (
     <>
       {!isOpen && (
         <button
           onClick={toggleDrawer}
-          className="fixed bottom-6 right-6 z-40 text-white bg-[#0d0f24] hover:bg-[#1c2236] p-3 rounded-full shadow"
+          className="fixed bottom-6 right-6 z-40 text-white bg-[#3d5165] hover:bg-[#4e6175] p-3 rounded-full shadow"
           aria-label="Open Sidebar"
         >
           ◀
         </button>
       )}
 
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-[#0c0c0c] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <div className="flex items-center space-x-2">
-            {/* <img src="/qloudseek-q-icon.png" alt="QloudSeek Logo" className="w-8 h-8" /> */}
             <span className="font-semibold text-lg">QloudSeek</span>
           </div>
           <button
@@ -54,28 +60,38 @@ export default function SidebarDrawer({ setView }) {
         {/* Navigation */}
         <div className="flex flex-col justify-between h-[calc(100%-64px)]">
           {/* Top Nav */}
-          <div className="p-4 space-y-6">
-            <button
-              onClick={() => handleNavClick('home')}
-              className="flex items-center space-x-3 hover:text-blue-400"
-            >
-              <Home size={18} />
-              <span>Home</span>
-            </button>
+          <div className="p-4 space-y-4">
+            <div>
+              <div className="flex items-center space-x-3 text-blue-300">
+                <Home size={18} />
+                <span>Home</span>
+              </div>
+              <div className="ml-6 space-y-2 mt-2">
+                {Object.keys(homeContent).map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => setActiveDialog({ title: item, content: homeContent[item] })}
+                    className="hover:text-blue-400"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <div>
-              <div className="flex items-center space-x-3 text-blue-300 font-semibold mb-2">
+              <div className="flex items-center space-x-3 text-blue-300">
                 <Puzzle size={18} />
                 <span>Features</span>
               </div>
-              <div className="pl-6 space-y-3">
-                {features.map((feature) => (
+              <div className="ml-6 space-y-2 mt-2">
+                {Object.keys(features).map((feature) => (
                   <button
-                    key={feature.name}
-                    onClick={() => setActiveFeature(feature)}
-                    className="block text-left hover:text-blue-400"
+                    key={feature}
+                    onClick={() => setActiveDialog({ title: feature, content: features[feature] })}
+                    className="hover:text-blue-400"
                   >
-                    {feature.name}
+                    {feature}
                   </button>
                 ))}
               </div>
@@ -100,23 +116,18 @@ export default function SidebarDrawer({ setView }) {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Feature Modal */}
-      {activeFeature && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="bg-[#0d0f24] text-white p-6 rounded-lg w-96 relative shadow-xl">
-            <button
-              onClick={() => setActiveFeature(null)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-white"
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-semibold mb-2">{activeFeature.name}</h3>
-            <p className="text-sm text-gray-300">{activeFeature.description}</p>
+        {/* Dialog */}
+        {activeDialog && (
+          <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#0c0c0c] text-white border border-gray-700 rounded-lg shadow-lg p-6 w-[90%] max-w-xl z-50">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold">{activeDialog.title}</h2>
+              <button onClick={() => setActiveDialog(null)} className="text-gray-400 hover:text-white">✕</button>
+            </div>
+            <pre className="text-sm whitespace-pre-wrap text-gray-300">{activeDialog.content}</pre>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }
