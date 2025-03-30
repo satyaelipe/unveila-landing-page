@@ -1,87 +1,68 @@
-// src/components/SidebarDrawer.jsx
 import React, { useState } from 'react';
 import { Home, Puzzle, LogIn, UserPlus } from 'lucide-react';
 
-export default function SidebarDrawer({ onSectionSelect }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDrawer = () => setIsOpen(!isOpen);
-
+export default function SidebarDrawer({ isOpen, onClose, onSectionSelect }) {
   const handleNavClick = (section) => {
     onSectionSelect(section);
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <>
-      {/* Toggle Button */}
-      {!isOpen && (
+    <div
+      className={`fixed top-0 right-0 h-full w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
+    >
+      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+        <div className="flex items-center space-x-2">
+          <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
+          <span className="font-semibold text-lg">Unveila</span>
+        </div>
         <button
-          onClick={toggleDrawer}
-          className="fixed bottom-6 right-6 z-40 text-white bg-[#3d5165] hover:bg-[#4e6175] p-3 rounded-full shadow"
-          aria-label="Open Sidebar"
+          onClick={onClose}
+          className="text-gray-400 hover:text-white text-lg"
+          aria-label="Close Sidebar"
         >
-          ◀
+          ▶
         </button>
-      )}
+      </div>
 
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-[#0d0f24] text-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <div className="flex items-center space-x-2">
-            <img src="/unveila-logo.png" alt="Unveila Logo" className="w-8 h-8" />
-            <span className="font-semibold text-lg">Unveila</span>
-          </div>
+      <nav className="flex flex-col justify-between h-full">
+        <div className="p-4 space-y-6">
           <button
-            onClick={toggleDrawer}
-            className="text-gray-400 hover:text-white text-lg"
-            aria-label="Close Sidebar"
+            onClick={() => handleNavClick('home')}
+            className="flex items-center space-x-3 hover:text-blue-400"
           >
-            ▶
+            <Home size={18} />
+            <span>Home</span>
+          </button>
+
+          <button
+            onClick={() => handleNavClick('features')}
+            className="flex items-center space-x-3 hover:text-blue-400"
+          >
+            <Puzzle size={18} />
+            <span>Features</span>
           </button>
         </div>
 
-        <nav className="flex flex-col justify-between h-full">
-          <div className="p-4 space-y-6">
-            <button
-              onClick={() => handleNavClick('home')}
-              className="flex items-center space-x-3 hover:text-blue-400"
-            >
-              <Home size={18} />
-              <span>Home</span>
-            </button>
-
-            <button
-              onClick={() => handleNavClick('features')}
-              className="flex items-center space-x-3 hover:text-blue-400"
-            >
-              <Puzzle size={18} />
-              <span>Features</span>
-            </button>
-          </div>
-
-          <div className="p-4 border-t border-gray-700 space-y-3">
-            <button
-              onClick={() => handleNavClick('login')}
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <LogIn size={18} />
-              <span>Login</span>
-            </button>
-            <button
-              onClick={() => handleNavClick('signup')}
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <UserPlus size={18} />
-              <span>Sign Up</span>
-            </button>
-          </div>
-        </nav>
-      </div>
-    </>
+        <div className="p-4 border-t border-gray-700 space-y-3">
+          <button
+            onClick={() => handleNavClick('login')}
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <LogIn size={18} />
+            <span>Login</span>
+          </button>
+          <button
+            onClick={() => handleNavClick('signup')}
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <UserPlus size={18} />
+            <span>Sign Up</span>
+          </button>
+        </div>
+      </nav>
+    </div>
   );
 }
