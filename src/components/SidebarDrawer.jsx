@@ -44,18 +44,25 @@ export default function SidebarDrawer({ setView }) {
   ];
 
   const homeContent = {
-    "What’s QloudSeek": `QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
-It provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.`,
-
-    "What We Solve": (
+    "What’s QloudSeek": (
       <div>
-        <p className="mb-4">
-          QloudSeek addresses the biggest pain points in cloud operations:
-        </p>
+        QloudSeek is a next-generation AI-driven cloud intelligence platform that helps teams understand, monitor, and optimize their multi-cloud environments.
+        <br /><br />
+        It provides deep insights, visualizations, and proactive automation to detect drift, optimize cost, and enhance security — across AWS, Azure, GCP, and more.
+      </div>
+    ),
+    "What We Solve": (
+      <div className="space-y-4">
+        <p>QloudSeek addresses the biggest pain points in cloud operations:</p>
         {problemsWeSolve.map((item, idx) => (
-          <div key={idx} className="mb-4">
-            <strong>{item.icon} {item.title}:</strong><br />
-            {item.desc}
+          <div
+            key={idx}
+            className="transition duration-200 transform hover:scale-[1.02] bg-[#0d0d0d] hover:bg-[#111] hover:shadow-md rounded-lg p-3"
+          >
+            <div className="font-semibold text-sm mb-1">
+              {item.icon} <span className="font-mono">{item.title}:</span>
+            </div>
+            <div className="text-gray-300 text-sm">{item.desc}</div>
           </div>
         ))}
       </div>
